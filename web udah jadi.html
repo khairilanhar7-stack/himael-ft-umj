@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIMAEL FT UMJ</title>
+
+<style>
+:root{
+    --red:#9c0000;
+    --dark:#0f0f0f;
+    --yellow:#f2c94c;
+    --gray:#eaeaea;
+}
+
+*{box-sizing:border-box;}
+
+html,body{
+    margin:0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background:#f6f6f6;
+    color:#222;
+}
+
+/* ===== HEADER ===== */
+header{
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    height:70px;
+    background:var(--red);
+    display:flex;
+    align-items:center;
+    padding:0 30px;
+    z-index:1000;
+}
+
+.menu-btn{
+    width:28px;
+    height:22px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    cursor:pointer;
+}
+
+.menu-btn span{
+    height:4px;
+    background:white;
+    border-radius:2px;
+    transition:.4s;
+}
+
+.menu-btn:hover span{
+    background:var(--yellow);
+}
+
+.menu-btn.active span:nth-child(1){
+    transform:rotate(45deg) translate(6px,6px);
+}
+.menu-btn.active span:nth-child(2){
+    opacity:0;
+}
+.menu-btn.active span:nth-child(3){
+    transform:rotate(-45deg) translate(6px,-6px);
+}
+
+.header-title{
+    flex:1;
+    text-align:center;
+    color:white;
+    font-weight:600;
+    letter-spacing:.5px;
+    font-size:15px;
+    line-height:1.3;
+}
+
+.header-logo{
+    height:42px;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    position:fixed;
+    top:0; left:0;
+    width:280px;
+    height:100%;
+    background:linear-gradient(180deg,#111,#1b1b1b);
+    padding-top:100px;
+    transform:translateX(-100%);
+    transition:.45s ease;
+    z-index:999;
+}
+
+.sidebar.active{
+    transform:translateX(0);
+}
+
+.sidebar a{
+    display:block;
+    padding:16px 30px;
+    color:#ddd;
+    text-decoration:none;
+    font-size:15px;
+    border-left:4px solid transparent;
+    transition:.3s;
+}
+
+.sidebar a:hover{
+    background:#222;
+    color:var(--yellow);
+    border-left:4px solid var(--yellow);
+}
+
+/* ===== OVERLAY ===== */
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    opacity:0;
+    pointer-events:none;
+    transition:.4s;
+    z-index:998;
+}
+
+.overlay.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* ===== MAIN ===== */
+main{
+    padding-top:90px;
+}
+
+/* ===== HERO ===== */
+.hero{
+    background:linear-gradient(120deg,#111,#2b0000);
+    color:white;
+    padding:80px 30px;
+}
+
+.hero-inner{
+    max-width:1100px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:38px;
+    margin:0 0 15px;
+}
+
+.hero p{
+    max-width:700px;
+    font-size:17px;
+    line-height:1.8;
+    color:#ddd;
+}
+
+/* ===== SECTION ===== */
+.section{
+    max-width:1100px;
+    margin:80px auto;
+    padding:0 30px;
+}
+
+.section h2{
+    font-size:30px;
+    margin-bottom:20px;
+    color:var(--red);
+}
+
+.section p, .section li{
+    font-size:16px;
+    line-height:1.9;
+}
+
+/* ===== VISI MISI ===== */
+.vm{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.vm-box{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    border-top:6px solid var(--red);
+}
+
+/* ===== PROKER ===== */
+.proker-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.proker-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.proker-card:hover{
+    transform:translateY(-6px);
+}
+
+.proker-card h3{
+    margin-top:0;
+    color:var(--red);
+}
+
+/* ===== FORM ===== */
+iframe{
+    width:100%;
+    height:600px;
+    border:none;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+/* ===== FOOTER ===== */
+footer{
+    background:#111;
+    color:#ccc;
+    text-align:center;
+    padding:25px;
+    margin-top:100px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="menu-btn" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="header-title">
+        HIMPUNAN MAHASISWA ELEKTRO<br>
+        FAKULTAS TEKNIK UNIVERSITAS MUHAMMADIYAH JAKARTA
+    </div>
+
+    <img src="img/himael.png" class="header-logo">
+</header>
+
+<div class="sidebar" id="sidebar">
+    <a href="#" onclick="showSection('hero')">Beranda</a>
+    <a href="#" onclick="showSection('profil')">Profil</a>
+    <a href="#" onclick="showSection('visi')">Visi & Misi</a>
+    <a href="#" onclick="showSection('proker')">Program Kerja</a>
+    <a href="#" onclick="showSection('saran')">Kotak Saran</a>
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<main>
+
+<section id="hero" class="hero">
+<div class="hero-inner">
+<h1>HIMAEL FT UMJ</h1>
+<p>
+Organisasi mahasiswa Teknik Elektro yang berperan sebagai pusat pengembangan akademik,
+kepemimpinan, dan kaderisasi berlandaskan nilai Catur Dharma Perguruan Tinggi Muhammadiyah.
+</p>
+</div>
+</section>
+
+<section id="profil" class="section">
+<h2>Mengenal lebih dekat dengan HIMAEL FT UMJ</h2>
+<p>
+HIMAEL FT UMJ merupakan lembaga eksekutif mahasiswa di tingkat program studi
+yang berfungsi sebagai wadah aspirasi, pengembangan intelektual, dan
+penguatan karakter kepemimpinan mahasiswa Teknik Elektro.
+</p>
+</section>
+
+<section id="visi" class="section">
+<h2>Visi & Misi</h2>
+<div class="vm">
+<div class="vm-box">
+<h3>Visi</h3>
+<p>Menjadikan HIMAEL FT-UMJ yang Progresif, Inovatif, dan Adaptif.</p>
+</div>
+<div class="vm-box">
+<h3>Misi</h3>
+<ol>
+<li>Menumbuhkan semangat dan tanggung jawab organisasi</li>
+<li>Menghadirkan program kerja efektif dan relevan</li>
+<li>Membangun forum diskusi dan kolaborasi internal</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section id="proker" class="section">
+<h2>Program Kerja</h2>
+<div class="proker-grid">
+<div class="proker-card">
+<h3>Workshop</h3>
+<ul><li>Kunjungan Edukatif</li><li>Diskusi Akademik</li></ul>
+</div>
+<div class="proker-card">
+<h3>Kaderisasi & Dakwah</h3>
+<ul><li>Elektro Camp</li><li>Bincang Kader</li></ul>
+</div>
+<div class="proker-card">
+<h3>Hubungan Mahasiswa & Sosial</h3>
+<ul><li>Reuni</li></ul>
+</div>
+<div class="proker-card">
+<h3>Perawaran Ruangan & Inventaris</h3>
+<ul><li>KABEL</li><li>Pendataan Inventaris</li></ul>
+</div>
+</div>
+</section>
+
+<section id="saran" class="section">
+<h2>Kotak Saran</h2>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfF0dv6c75P9_JMRn6fQ45NsDjl_6T2sCe6p2uAZ75lQ39Sxg/viewform"></iframe>
+</section>
+
+</main>
+
+<footer>
+© 2026 Himpunan Mahasiswa Elektro Fakultas Teknik Universitas Muhammadiyah Jakarta
+</footer>
+
+<script>
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const menuBtn = document.querySelector(".menu-btn");
+
+function toggleMenu(){
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+    menuBtn.classList.toggle("active");
+}
+
+function showSection(id){
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+    toggleMenu();
+}
+</script>
+
+</body>
+</html>
